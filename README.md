@@ -23,7 +23,7 @@ $ conan create . -o shared=True
 $ conan create . -s build_type=Debug
 ```
 
-#### 对源码进行编辑并安装本地目录包
+#### 配置本地目录包（编辑模式）
 对于自己的轮子（或者一些fork的别人的轮子），往往会有编辑源码的需求，但是如果按照上面的这种做法，会有很多问题：
 * 最新的修改并不一定是buf-free的
 * 为了让被依赖项目能够使用包，需要提交到remote
