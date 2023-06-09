@@ -34,7 +34,7 @@ $ conan create . -s build_type=Debug
 一般是针对最新版本的源码进行修改和提交，因此先拉取源码，再将 `conanfile.py` 拷贝到项目根目录，之后同上。
 ```bash
 $ git clone https://github.com/Conzxy/kanon.git
-$ cp */conan-recipe/kanon/v1.9.0-pre/conanfile.py kanon/kanon
+$ cp */conan-recipe/pkgs/kanon/v1.9.0-pre/conanfile.py kanon/kanon
 $ conan editable add kanon
 $ cd kanon
 $ conan create .
