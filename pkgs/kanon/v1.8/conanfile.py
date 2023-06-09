@@ -95,7 +95,6 @@ class KanonRecipe(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(cli_args=["-GNinja"])
         cmake.build()
 
     def package(self):
