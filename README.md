@@ -4,17 +4,17 @@
 该仓库主要存储我个人所造轮子的[conan](https://github.com/conan-io/conan) recipe。  
 其目的是将github作为remote，conan在本地进行包管理。
 
-> 只针对conan2，且只考虑CMake作为工具链
+> 只针对 `conan2`，且只考虑 `CMake` 作为工具链
 
 ## Usage
 ### 安装包
-#### 安装到local cache
 切换到包含 `conanfile.py` 的目录，执行下面命令：
 ```bash
 $ cd kanon/v1.8
 $ conan create .
 ```
-可以指定setting和option来进行定制化。比如编译动态库：
+这样会将包的`conanfile.py`, `source/`, `package/`等都安装到 **本地缓存(local cache)** 中。
+可以配置 `setting` 和 `option` 来进行定制化。比如编译动态库：
 ```bash
 $ conan create . -o shared=True
 ```
@@ -23,13 +23,15 @@ $ conan create . -o shared=True
 $ conan create . -s build_type=Debug
 ```
 
-#### 配置本地目录包（编辑模式）
+### 配置本地目录包（编辑模式）
 对于自己的轮子（或者一些fork的别人的轮子），往往会有编辑源码的需求，但是如果按照上面的这种做法，会有很多问题：
 * 最新的修改并不一定是buf-free的
 * 为了让被依赖项目能够使用包，需要提交到remote
 * 这个还需要进行新的全量编译，因为修改不稳定，可能需要进行多次
 
-综上，这是很煎熬的。所幸 `conan` 提供了一种方式将特定的目录标记为 **可编辑模式（editable mode）**。这种方式不会安装到local cache，但是可以配置布局，从而让包用户搜索本地包，继续使用。这种方式往往只需要增量编译，因为本地目录缓存是不需要重新安装的。
+所幸 `conan` 提供了一种方式将特定的目录标记为 **可编辑包（editable packge）**。这种方式虽然也会安装到local cache，但实际会搜索这个目录，通过配置包布局，从而让包用户正确搜索可编辑包的一些路径，达到与本地缓存相同的效果。这种方式往往只需要增量编译，因为本地目录缓存是不需要重新安装的。
+
+> 关于包布局，可以参考 [ConanFile::layout()](https://docs.conan.io/2/tutorial/developing_packages/package_layout.html#developing-packages-layout) 和[templates](templates/)目录文件。
 
 一般是针对最新版本的源码进行修改和提交，因此先拉取源码，再将 `conanfile.py` 拷贝到项目根目录，之后同上。
 ```bash
@@ -64,4 +66,4 @@ $ cmake --build . --target [..]
 ```
 
 ## 编写包
-参考[templates目录](templates/)下的模板文件。
+参考[templates目录](templates/)下的模板文件以及[文档相关内容](https://docs.conan.io/2/tutorial/creating_packages.html)。
