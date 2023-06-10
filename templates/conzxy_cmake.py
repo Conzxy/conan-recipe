@@ -114,6 +114,8 @@ class Recipe(ConanFile):
         the `self.cpp_info` in `package_info()`.
         So you can set `builddirs`, `includedirs`, `libs` of them.
 
+        The difference between `.source` and `.build` is the root directory.
+
         Note:
             There is not necessary to set self.cpp.build.libs = [..] here
             since conan will merge the the `self.cpp.source` and `self.cpp.build`
@@ -180,3 +182,24 @@ class Recipe(ConanFile):
 
         # self.cpp_info.includedirs = []
         # self.cpp_info.libdirs = []
+
+        """
+        Note:
+            If you install and use your `xxx-config.cmake`, don't care the components as below.
+
+        If you want to set multiple libraries from multiple targets,
+        use the `self.cpp_info.components['xxx'].libs/requires/set_property("cmake_target_name", "..")`.
+        Note:
+            The default `.includdirs` is `["include"]` and 
+            the default `.libdirs` is `["lib"]`.
+            You can modify them also.
+        
+        refernece:
+            https://docs.conan.io/2/examples/conanfile/package_info/components.html?highlight=components
+
+        For editable mode, you can set the `self.cpp.source.components` and 
+        `self.cpp.build.components`.
+
+        refernece:
+            https://docs.conan.io/2/examples/conanfile/layout/editable_components.html#examples-conanfile-layout-components-editables
+        """ 
